@@ -1,4 +1,4 @@
-# ART2026
+# Modelo 1
 
 ## Matching semántico entre indicadores PATR y MGA / SisPT
 
