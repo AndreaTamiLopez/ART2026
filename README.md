@@ -1,98 +1,75 @@
-Matching semántico Top-K entre indicadores PATR y MGA / SisPT
+# ART2026
 
-Este repositorio contiene una herramienta para realizar matching semántico entre indicadores de producto asociados a proyectos (PATR) y un catálogo de indicadores o políticas (MGA / SisPT).
+## Matching semántico entre indicadores PATR y MGA / SisPT
 
-El objetivo es identificar, para cada proyecto, los Top-K indicadores más cercanos en significado, utilizando modelos de lenguaje multilingües y métricas de similitud semántica.
+Este repositorio implementa un proceso de **matching semántico** entre indicadores de producto asociados a proyectos (PATR) y un catálogo de indicadores o políticas (MGA / SisPT).
 
-📌 Alcance
+El objetivo es identificar, para cada proyecto, los **Top-K indicadores más similares en significado**, utilizando modelos de lenguaje multilingües.
 
-El código permite:
+---
 
-Comparar descripciones textuales de proyectos contra un catálogo de indicadores
+## Metodología
 
-Encontrar correspondencias semánticas, incluso cuando no hay coincidencia literal de palabras
+El proceso de emparejamiento sigue los siguientes pasos:
 
-Obtener resultados ordenados por nivel de similitud
+1. Generación de embeddings multilingües usando Sentence Transformers  
+2. Normalización de vectores para similitud coseno  
+3. Búsqueda de vecinos más cercanos mediante k-Nearest Neighbors (Top-K)  
+4. Filtrado de resultados usando un umbral mínimo de similitud  
 
-El resultado final se entrega en un archivo Excel, con una fila por cada relación proyecto–indicador.
+El resultado se entrega en formato **long**, con una fila por cada relación proyecto–indicador.
 
-⚙️ Metodología
+---
 
-El proceso de matching sigue los siguientes pasos:
-
-Generación de embeddings multilingües usando Sentence Transformers
-
-Normalización de vectores para similitud coseno
-
-Búsqueda de vecinos más cercanos mediante k-Nearest Neighbors (Top-K)
-
-Filtrado de resultados usando un umbral mínimo de similitud
-
-📂 Estructura del proyecto
+## Estructura del proyecto
 src/
- └── semantic_matching/
-     ├── __init__.py
-     └── matcher.py
+semantic_matching/
+init.py
+matcher.py
 scripts/
- └── run_matching.py
+run_matching.py
 data/
- ├── raw/        # datos de entrada (uso local, no versionar)
- └── outputs/    # resultados generados (uso local, no versionar)
+raw/ # datos de entrada (uso local, no versionar)
+outputs/ # resultados generados (uso local, no versionar)
 requirements.txt
 .gitignore
 README.md
-🧩 Requisitos
 
-Python 3.9 o superior
+
+---
+
+## Requisitos
+
+- Python 3.9 o superior
 
 Dependencias principales:
 
-pandas
+- pandas  
+- numpy  
+- scikit-learn  
+- sentence-transformers  
+- openpyxl  
 
-numpy
+Las dependencias se instalan desde `requirements.txt`.
 
-scikit-learn
+---
 
-sentence-transformers
+## Uso
 
-openpyxl
+1. Colocar los archivos de entrada en la carpeta `data/raw/`  
+2. Configurar rutas y nombres de columnas en `scripts/run_matching.py`  
+3. Ejecutar el script desde la raíz del proyecto  
 
-Las dependencias se instalan desde requirements.txt.
+El archivo de salida se genera en la carpeta `data/outputs/` en formato Excel.
 
-▶️ Uso
+---
 
-Colocar los archivos de entrada en la carpeta data/raw/
+## Parámetros principales
 
-Configurar rutas y nombres de columnas en scripts/run_matching.py
+- **top_k**: número máximo de indicadores devueltos por proyecto  
+- **min_score**: umbral mínimo de similitud semántica  
+- **model_name**: modelo de Sentence Transformers utilizado  
+- **device**: `cpu` (recomendado) o `cuda` si se dispone de GPU  
 
-Ejecutar el script desde la raíz del proyecto
+---
 
-El archivo de salida se genera automáticamente en data/outputs/ en formato Excel.
-
-🔧 Parámetros clave
-
-top_k
-Número máximo de indicadores devueltos por proyecto (default: 10)
-
-min_score
-Umbral mínimo de similitud semántica (default: 0.35)
-
-model_name
-Modelo multilingüe de Sentence Transformers utilizado para los embeddings
-
-device
-cpu (recomendado por estabilidad) o cuda si se dispone de GPU
-
-📝 Notas técnicas
-
-La normalización de embeddings permite que la similitud coseno sea consistente.
-
-El formato de salida es long, facilitando análisis, filtros y visualización.
-
-El umbral de similitud puede ajustarse según la calidad deseada de los matches.
-
-El resultado está en formato long, lo que facilita análisis, filtros y visualización.
-
-Si muchos proyectos quedan sin match, se recomienda bajar min_score.
-
-Si aparecen matches poco relevantes, se recomienda aumentar el umbral.
