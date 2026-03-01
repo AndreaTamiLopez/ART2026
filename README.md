@@ -120,7 +120,4 @@ Si muchos proyectos quedan sin match, se recomienda bajar min_score.
 
 Si aparecen matches poco relevantes, se recomienda aumentar el umbral.
 
-Licencia
 
-Este proyecto puede publicarse bajo una licencia abierta (por ejemplo, MIT o Apache-2.0).
-Agregar un archivo LICENSE si se requiere reutilización externa.
