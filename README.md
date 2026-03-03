@@ -2,7 +2,7 @@
 
 ## Matching semántico entre indicadores PATR y MGA / SisPT
 
-Este repositorio implementa un proceso de matching semántico entre indicadores de producto asociados a proyectos (PATR) y un catálogo de indicadores o políticas (MGA / SisPT).
+Este repositorio implementa un proceso de matching semántico entre indicadores de producto asociados a los PATR y un catálogo de indicadores de los PDT (MGA / SisPT).
 
 El objetivo es identificar, para cada proyecto, los Top-K indicadores más similares en significado, utilizando modelos de lenguaje multilingües.
 
